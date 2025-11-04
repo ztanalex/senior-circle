@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Circle - Volunteer Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c7873;
+            --secondary: #6fb98f;
+            --accent: #ffb347;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --gray: #6c757d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 120, 115, 0.8), rgba(44, 120, 115, 0.9)), url('https://images.unsplash.com/photo-1537884944318-390069bb8665?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: #ff9e1f;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* About Section */
+        .about {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: 0;
+            left: 25%;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Events Section */
+        .events {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .events-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--gray);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .event-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .event-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .event-image {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .event-card:hover .event-image img {
+            transform: scale(1.05);
+        }
+        
+        .event-content {
+            padding: 20px;
+        }
+        
+        .event-date {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .event-content h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .event-content p {
+            color: var(--gray);
+            margin-bottom: 15px;
+        }
+        
+        /* Senior Event Registration Section */
+        .senior-registration {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .registration-content {
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+        
+        .registration-text {
+            flex: 1;
+        }
+        
+        .registration-form {
+            flex: 1;
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* Volunteer Section */
+        .volunteer {
+            padding: 80px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .volunteer-content {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .volunteer-text {
+            flex: 1;
+        }
+        
+        .volunteer-form {
+            flex: 1;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+        
+        .footer-column p, .footer-column a {
+            color: #adb5bd;
+            margin-bottom: 10px;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column a:hover {
+            color: white;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        /* Success message styling */
+        .form-success {
+            display: none;
+            background-color: var(--secondary);
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content, .volunteer-content, .registration-content {
+                flex-direction: column;
+            }
+            
+            .about-image, .volunteer-form, .registration-form {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-hands-helping"></i>
+                    <h1>Senior Circle</h1>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#events">Events</a></li>
+                        <li><a href="#senior-registration">Event Sign-Up</a></li>
+                        <li><a href="#volunteer">Volunteer</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Connecting Seniors Through Technology and Community</h2>
+            <p>Join Senior Circle to participate in events, learn new skills especially in social technology, and connect with others in our vibrant community.</p>
+            <a href="#senior-registration" class="btn">Sign Up for Events</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Our Circle</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Our Mission</h3>
+                    <p>For over 3 years, Senior Circle has been dedicated to enhancing the lives of seniors in our community. We provide a welcoming space where older adults can socialize, learn, and participate in meaningful activities.</p>
+                    <p>Our center offers a variety of programs including technology training, fitness classes, art workshops, and social events - all designed to keep seniors connected and engaged.</p>
+                    <p>A key mission of Senior Circle is to bring technology access and social fairness to senior people, ensuring everyone can participate fully in our digital world regardless of their background or technical experience.</p>
+                    <p>We believe that every senior deserves to live with dignity, purpose, and connection to their community.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Seniors enjoying activities at our center">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events" id="events">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Events</h2>
+            </div>
+            <div class="events-tabs">
+                <button class="tab-btn active" data-tab="upcoming">Upcoming Events</button>
+                <button class="tab-btn" data-tab="past">Past Events</button>
+            </div>
+            <div class="events-grid" id="upcoming-events">
+                <!-- Upcoming Events -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Tech Help Session">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Nov 15, 2025</span>
+                        <h3>Tech Help Session</h3>
+                        <p>Get help with smartphones, tablets, and computers. Bring your devices!</p>
+                        <a href="#senior-registration" class="btn">Sign Up</a>
+                    </div>
+                </div>
+
+               <!--  <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Art Workshop">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Nov 29, 2025</span>
+                        <h3>Creative Arts Workshop</h3>
+                        <p>Join us for a fun-filled afternoon of painting and crafts. All materials provided.</p>
+                        <a href="#senior-registration" class="btn">Sign Up</a>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Yoga Class">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Dec 13, 2025</span>
+                        <h3>Gentle Yoga & Meditation</h3>
+                        <p>Beginner-friendly yoga session focusing on flexibility and relaxation.</p>
+                        <a href="#senior-registration" class="btn">Sign Up</a>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Spring Garden Party">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Feb 14, 2026</span>
+                        <h3>Spring Garden Party</h3>
+                        <p>Beautiful afternoon in our community garden with live music and refreshments.</p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1545235617-9465d2a55698?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Memory Cafe">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Mar 7, 2026</span>
+                        <h3>Memory Cafe</h3>
+                        <p>Special gathering for seniors with memory challenges and their caregivers.</p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Intergenerational Storytelling">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Apr 11, 2026</span>
+                        <h3>Intergenerational Storytelling</h3>
+                        <p>Seniors shared life stories with local middle school students.</p>
+                    </div>
+                </div> -->
+
+
+
+            </div>
+            <div class="events-grid" id="past-events" style="display: none;">
+                <!-- Past Events -->
+                
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="images/oct-25-2025.jpg" alt="ChongYang Festival Games and Carnival">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Oct 25, 2025</span>
+                        <h3>ChongYang Festival Games and Carnival</h3>
+                        <p>Beautiful afternoon in our CCCA community center with delicious lunch and interesting games</p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="images/mar-16-2025.jpg" alt="Making Paper Flowers">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Mar 16, 2025</span>
+                        <h3>Making Paper Flowers</h3>
+                        <p>Help making colorful and elegent paper flowers with Seniors @ CCCA culture center</p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="images/dec-7-2024.jpg" alt="Making Mugwort Hammers">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Dec 7, 2024</span>
+                        <h3>Making Mugwort Hammers</h3>
+                        <p>Helping seniors to hand make full body massage hammer with elegant lines and charming colors @ CCCA culture center</p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="images/nov-9-2024.jpg" alt="Chinese Calligraphy Workshop">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Nov 9, 2024</span>
+                        <h3>Chinese Calligraphy Workshop</h3>
+                        <p>Helping and practicing with seniors Chinese Calligraphy @ CCCA culture center</p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="images/oct-19-2024.jpg" alt="ChongYang Festival Celebration 2024">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Oct 19, 2024</span>
+                        <h3>ChongYang Festival Celebration 2024</h3>
+                        <p>Celebrating ChongYang Festival 2024 with Seniors @ CCCA culture center</p>
+                    </div>
+                </div>
+
+
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="images/sep-28-2024.jpg" alt="Photography Workshop">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Sep 28, 2024</span>
+                        <h3>Photography Workshop</h3>
+                        <p>Helping on the Photography Workshop, to have a fun learning experience with Seniors @ CCCA culture center</p>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="images/nov-10-2023.jpg" alt="Wechat application Workshop and Q&A">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Nov 10, 2023</span>
+                        <h3>Wechat application Workshop and Q&A</h3>
+                        <p>A hands-on and interactive workshop to teacher seniors How to Use WeChat application on Smart Phones @ Infinity Adult Day Health Care Center in Westlake Village</p>
+                    </div>
+                </div>
+
+
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="images/sep-17-2023.jpg" alt="Knitting Workshop">
+                    </div>
+                    <div class="event-content">
+                        <span class="event-date">Sep 17, 2023</span>
+                        <h3>Knitting Workshop</h3>
+                        <p>Helping seniors to learn how to knit beautiful wearable things like scraf @ CCCA culture center</p>
+                    </div>
+                </div>
+
+
+
+
+
+                
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Senior Event Registration Section -->
+    <section class="senior-registration" id="senior-registration">
+        <div class="container">
+            <div class="section-title">
+                <h2>Event Registration for Seniors</h2>
+            </div>
+            <div class="registration-content">
+                <div class="registration-text">
+                    <h3>Join Our Upcoming Events</h3>
+                    <p>We're excited to have you participate in our upcoming activities! Please fill out the form to register for any of our events.</p>
+                    <p>All events are free for seniors, and we provide any necessary materials or equipment.</p>
+                    <p>If you need transportation assistance or have special requirements, please let us know in the comments section, and we'll do our best to accommodate you.</p>
+                    <p>After registration, you'll receive a confirmation email with event details and any preparation instructions.</p>
+                </div>
+                <div class="registration-form">
+                    <h3>Sign Up for Events</h3>
+                    <!-- UPDATED FORMSPREE FORM WITH PROPER CONFIGURATION -->
+                    <form id="seniorRegistrationForm" action="https://formspree.io/f/xblpbeqq" method="POST">
+                        <input type="hidden" name="_subject" value="New Senior Event Registration from Website">
+                        <input type="text" name="_gotcha" style="display:none">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="seniorFirstName">First Name</label>
+                                <input type="text" id="seniorFirstName" name="firstName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="seniorLastName">Last Name</label>
+                                <input type="text" id="seniorLastName" name="lastName" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="seniorEmail">Email</label>
+                            <input type="email" id="seniorEmail" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="seniorPhone">Phone</label>
+                            <input type="tel" id="seniorPhone" name="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventSelect">Select Event</label>
+                            <select id="eventSelect" name="event" class="form-control" required>
+                                <option value="">Choose an event</option>
+                                <option value="tech-help">Tech Help Session (Nov 15, 2025)</option>
+                                <option value="creative-arts">Creative Arts Workshop (Nov 29, 2025)</option>
+                                <option value="yoga">Gentle Yoga & Meditation (Dec 13, 2025)</option>
+                                <option value="Spring-Party">Spring Garden Party (Feb 14, 2026)</option>
+                                <option value="memory-cafe">Memory Cafe (Mar 7, 2026)</option>
+                                <option value="storytelling"> Intergenarational Storytelling  (Apr 11, 2026)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="seniorMessage">Special Requirements</label>
+                            <textarea id="seniorMessage" name="requirements" class="form-control" rows="4" placeholder="Let us know if you need transportation, have dietary restrictions, or require any accommodations..."></textarea>
+                        </div>
+                        <button type="submit" class="btn">Register for Event</button>
+                        <div class="form-success" id="seniorFormSuccess">
+                            Thank you for registering! We'll contact you with event details soon.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Volunteer Section -->
+    <section class="volunteer" id="volunteer">
+        <div class="container">
+            <div class="section-title">
+                <h2>Become a Volunteer</h2>
+            </div>
+            <div class="volunteer-content">
+                <div class="volunteer-text">
+                    <h3>Make a Difference Today</h3>
+                    <p>Our volunteers are the heart of Senior Circle. Whether you can spare a few hours a week or just help with special events, your time makes a real difference in the lives of seniors.</p>
+                    <p>We offer flexible volunteering opportunities that match your skills and interests:</p>
+                    <ul>
+                        <li>Event assistance and planning</li>
+                        <li>Teaching classes or workshops</li>
+                        <li>Companionship and friendly visits</li>
+                        <li>Administrative support</li>
+                        <li>Technology assistance</li>
+                    </ul>
+                    <p>No special skills required - just a caring heart and willingness to help!</p>
+                </div>
+                <div class="volunteer-form">
+                    <h3>Sign Up to Volunteer</h3>
+                    <!-- UPDATED FORMSPREE FORM WITH PROPER CONFIGURATION -->
+                    <form id="volunteerForm" action="https://formspree.io/f/mvgvyndb" method="POST">
+                        <input type="hidden" name="_subject" value="New Volunteer Application from Website">
+                        <input type="text" name="_gotcha" style="display:none">
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="interest">Volunteer Interest</label>
+                            <select id="interest" name="interest" class="form-control" required>
+                                <option value="">Select an area of interest</option>
+                                <option value="events">Event Assistance</option>
+                                <option value="teaching">Teaching/Workshops</option>
+                                <option value="companionship">Companionship</option>
+                                <option value="admin">Administrative Support</option>
+                                <option value="tech">Technology Assistance</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="availability">Availability</label>
+                            <select id="availability" name="availability" class="form-control" required>
+                                <option value="">Select your availability</option>
+                                <option value="weekday-mornings">Weekday Mornings</option>
+                                <option value="weekday-afternoons">Weekday Afternoons</option>
+                                <option value="weekends">Weekends</option>
+                                <option value="flexible">Flexible</option>
+                                <option value="events-only">Special Events Only</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Additional Information</label>
+                            <textarea id="message" name="message" class="form-control" rows="4" placeholder="Tell us about any relevant experience or special skills..."></textarea>
+                        </div>
+                        <button type="submit" class="btn">Submit Application</button>
+                        <div class="form-success" id="volunteerFormSuccess">
+                            Thank you for your interest in volunteering! We will contact you soon.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> PO Box 6174, Thousand Oaks, CA 91359</p>
+                    <p><i class="fas fa-phone"></i> (213) 880-9638</p>
+                    <p><i class="fas fa-envelope"></i> seniorcircle.org@gmail.com</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <a href="#home">Home</a>
+                    <a href="#about">About Us</a>
+                    <a href="#events">Events</a>
+                    <a href="#senior-registration">Event Sign-Up</a>
+                    <a href="#volunteer">Volunteer</a>
+                </div>
+                <div class="footer-column">
+                    <h3>Hours of Operation</h3>
+                    <p>Monday - Friday: 9am - 5pm</p>
+                    <p>Saturday: 10am - 4pm</p>
+                    <p>Sunday: Closed</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Connect With Us</h3>
+                    <p>Follow us on social media for updates and event announcements.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Senior Circle. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Event tabs functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const upcomingEvents = document.getElementById('upcoming-events');
+            const pastEvents = document.getElementById('past-events');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Show/hide appropriate content
+                    if (this.dataset.tab === 'upcoming') {
+                        upcomingEvents.style.display = 'grid';
+                        pastEvents.style.display = 'none';
+                    } else {
+                        upcomingEvents.style.display = 'none';
+                        pastEvents.style.display = 'grid';
+                    }
+                });
+            });
+            
+            // Form submission handling
+            const seniorForm = document.getElementById('seniorRegistrationForm');
+            const volunteerForm = document.getElementById('volunteerForm');
+            
+            // Handle form submissions with fetch API to avoid page redirect
+            if (seniorForm) {
+                seniorForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(seniorForm);
+                    
+                    fetch(seniorForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            // Show success message
+                            document.getElementById('seniorFormSuccess').style.display = 'block';
+                            seniorForm.reset();
+                            
+                            // Scroll to success message
+                            document.getElementById('seniorFormSuccess').scrollIntoView({behavior: "smooth"});
+                        } else {
+                            response.json().then(data => {
+                                if (Object.hasOwn(data, 'errors')) {
+                                    alert("There was an error with your submission. Please try again.");
+                                } else {
+                                    alert("Oops! There was a problem submitting your form");
+                                }
+                            });
+                        }
+                    }).catch(error => {
+                        alert("Oops! There was a problem submitting your form");
+                    });
+                });
+            }
+            
+            if (volunteerForm) {
+                volunteerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const formData = new FormData(volunteerForm);
+                    
+                    fetch(volunteerForm.action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            // Show success message
+                            document.getElementById('volunteerFormSuccess').style.display = 'block';
+                            volunteerForm.reset();
+                            
+                            // Scroll to success message
+                            document.getElementById('volunteerFormSuccess').scrollIntoView({behavior: "smooth"});
+                        } else {
+                            response.json().then(data => {
+                                if (Object.hasOwn(data, 'errors')) {
+                                    alert("There was an error with your submission. Please try again.");
+                                } else {
+                                    alert("Oops! There was a problem submitting your form");
+                                }
+                            });
+                        }
+                    }).catch(error => {
+                        alert("Oops! There was a problem submitting your form");
+                    });
+                });
+            }
+            
+            // Mobile menu toggle
+            const mobileMenu = document.querySelector('.mobile-menu');
+            const nav = document.querySelector('nav ul');
+            
+            mobileMenu.addEventListener('click', function() {
+                if (nav.style.display === 'flex') {
+                    nav.style.display = 'none';
+                } else {
+                    nav.style.display = 'flex';
+                    nav.style.flexDirection = 'column';
+                    nav.style.position = 'absolute';
+                    nav.style.top = '70px';
+                    nav.style.right = '0';
+                    nav.style.backgroundColor = 'white';
+                    nav.style.width = '200px';
+                    nav.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+                    nav.style.padding = '20px';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
